@@ -1,0 +1,20 @@
+.container{
+    background-image:  linear-gradient(rgba(0, 91, 109, 0.817), rgba(128, 75, 7, 0.712)), url('/background.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+}
+
+.grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2rem;
+}
