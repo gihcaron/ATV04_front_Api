@@ -1,6 +1,7 @@
 .container{
     background-image:  linear-gradient(rgba(0, 91, 109, 0.817), rgba(128, 75, 7, 0.712)), url('/background.png');
     background-position: center;
+    font-family: 'Poppins', sans-serif;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -11,10 +12,60 @@
 
 .grid{
     display: flex;
+    margin-top: 10rem;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
     align-items: center;
     gap: 2rem;
+}
+
+
+.searchContainer{
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    padding: 1rem;
+}
+
+.searchInput{
+    width: 300px;
+    padding: 0.5rem;
+    border-radius: 20px;
+}
+
+.searchButton{
+    background-color:rgb(83,160,163);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchButton:hover{
+    background-color: rgba(0, 91, 109, 0.817);
+}
+
+.resetButton{
+    background-color: rgb(83,160,163);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.resetButton:hover{
+    background-color: rgba(0, 91, 109, 0.817);
 }
