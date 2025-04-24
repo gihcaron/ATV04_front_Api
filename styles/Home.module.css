@@ -7,7 +7,14 @@
     background-attachment: fixed;
     min-height: 100vh;
     padding: 2rem;
-    display: flex;
+}
+
+.title {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    margin: 1rem;
 }
 
 .grid {

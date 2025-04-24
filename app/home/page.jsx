@@ -12,13 +12,12 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [characters, setCharacters] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const cacheRef = useRef(new Map())
   
   const fetchCharacters = async (name = "", pageNumber = 1) => {
-    setLoading(true);
     const cache = cacheRef.current;
     const cacheKey = `${name}-${pageNumber}`;
     const nextPageNumber = pageNumber + 1;
@@ -55,7 +54,6 @@ export default function Home() {
       cache.set(cacheKey,{
         results: data.results,
         totalPages: data.info.pages,
-
       }
       );
 
@@ -84,25 +82,25 @@ export default function Home() {
         results: res.data.results,
         totalPages: res.data.info.pages,
       });
-      console.log(`💾 Salvo no cache: ${nextCacheKey}`);
+      console.log(`😎 Armazenado no cache: ${nextCacheKey}`);
 
     } catch (err) {
-      console.log(`❌ Prefetch falhou: ${nextCacheKey}`, err);
+      console.log(`😶‍🌫️ Falha no Prefetch: ${nextCacheKey}`, err);
     }
   }else {
-    console.log("ℹ️ Prefetch ignorado: já no cache ou fora do limite")
+    console.log("😤 Prefetch não realizado: já armazenado no cache ou fora do limite permitido")
   }
   console.log(`🔄 Cache final: ${cache.size} páginas`);
   for (const [key,value] of cache.entries()) {
-    console.log(`📦 &{key: ${value.results.length}} personagens`)
+  console.log(`📦 Cache: ${key} contém ${value.results.length} personagens`);
   }
-  console.log("============== BUSCA FINALIZADA ==============\n")
+  console.log(" 🔴🔴🔴🔴 BUSCA FINALIZADA 🔴🔴🔴🔴")
     };
   };
 
-
   useEffect(() => {
     fetchCharacters(search.trim(), page);
+    setLoading(false);
   }, [page]);
   
   useEffect(() => {
@@ -115,24 +113,28 @@ const handleSearch = () => {
   fetchCharacters(name, 1);
 };
 
-  const handleReset = () => {
-    setSearch("");
-    setPage(1); 
-    fetchCharacters("", 1);
-    toast.success("Filtro resetado com sucesso!", {position: "top-left" });
-  }
 
-  const handleCardClick = (name) => {
-    toast.info(`Você clicou em ${name}`);
-  };
+const handleCardClick = (name) => {
+  toast.info(`Você clicou em ${name}`);
+};
+
+const handleReset = () => {
+  setSearch("");
+  setPage(1); 
+  fetchCharacters("", 1);
+  toast.success("Busca resetada com sucesso!", {position: "top-left"} )
+};
+
 
   return (
     <div className={styles.container}>
       <ToastContainer
-        position="top-right" // "top-right", "top-center", "top-left", "bottom-right", "bottom-center", "bottom-left"
-        autoClose={7500} // tempo em milissegundos para o toast fechar automaticamente
-        theme="light" // tema do toast, pode ser "light", "dark" ou "colored"
+        position="top-right"
+        autoClose={7500}
+        theme="light"
       />
+
+      <h1 className={styles.title}>API Rick & Morty</h1>
 
       <div className={styles.searchContainer}>
         <input
@@ -145,60 +147,58 @@ const handleSearch = () => {
 
         <button
           className={styles.searchButton}
-          onClick={(handleSearch) => fetchCharacters(search.trim())}
+          onClick={handleSearch}
         >
           Buscar
         </button>
 
         <button
           className={styles.resetButton}
-          onClick={(handleReset) => {
-            setSearch("");
-            fetchCharacters();
-          }}
+          onClick={handleReset}
         >
           Resetar
         </button>
       </div>
 
       <div className={styles.navControls}>
-
-          <button className={styles.buttonNav}
+        <button
+          className={styles.buttonNav}
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          disabled={page === 1}
-          >
-           Página Anterior
-          </button>
+          disabled={page === 1 || notFound}
+        >
+          Página Anterior
+        </button>
 
-          <span className={styles.pageNumber}>
-          Pagina {page} de {totalPages}
-          </span>
+        <span className={styles.pageNumber}>
+          Página {page} de {totalPages}
+        </span>
 
-          <button className={styles.buttonNav}
+        <button
+          className={styles.buttonNav}
           onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          disabled={page === totalPages}
-          >
-           Próxima Página
-          </button>
+          disabled={page === totalPages || notFound}
+        >
+          Próxima Página
+        </button>
       </div>
-      {notFound && <h1 className={styles.notFound}> Nenhum personagem encontrado 😥</h1>}
+
+      {notFound && <h1 className={styles.notFound}>Nenhum personagem encontrado 😥</h1>}
 
       {loading ? (
-                <div className={`${styles.loaderWrapper} ${loading ? "" : styles.hidden}`}>
-                    <Loader />
-                </div>
-            ) : (
-
-      <div className={styles.grid}>
-        {characters.map((char) => (
-          <CharacterCard
-            key={char.id}
-            character={char}
-            onClick={() => handleCardClick(char.name)}
-          />
-        ))}
-      </div>
+        <div className={`${styles.loaderWrapper} ${loading ? "" : styles.hidden}`}>
+          <Loader />
+        </div>
+      ) : (
+        <div className={styles.grid}>
+          {characters.map((char) => (
+            <CharacterCard
+              key={char.id}
+              character={char}
+              onClick={() => handleCardClick(char.name)}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
-}
+};
