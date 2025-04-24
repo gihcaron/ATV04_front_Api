@@ -10,20 +10,18 @@
     display: flex;
 }
 
-.grid{
+.grid {
     display: flex;
-    margin-top: 10rem;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
     align-items: center;
     gap: 2rem;
+    margin-top: 10rem; 
 }
 
-
 .searchContainer{
-    height: 10rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -32,12 +30,12 @@
     flex-direction: row;
     justify-content: center;
     position: absolute;
-    width: 100%;
+    width: 95%;
     padding: 1rem;
 }
 
 .searchInput{
-    width: 300px;
+    width: 350px;
     padding: 0.5rem;
     border-radius: 20px;
 }
@@ -68,4 +66,61 @@
 
 .resetButton:hover{
     background-color: rgba(0, 91, 109, 0.817);
+}
+
+.navControls {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center; 
+    position: absolute; 
+    width: 95%;
+    padding: 1rem;
+}
+
+.buttonNav {
+    background-color: rgb(227, 143, 47);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttonNav:hover {
+    background-color: rgba(138, 84, 3, 0.817);
+}
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pageNumber {
+    background-color: rgb(83,160,163);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 1.8rem;
+    width: 14rem;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 1rem;
 }
